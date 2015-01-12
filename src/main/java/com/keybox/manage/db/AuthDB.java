@@ -85,30 +85,34 @@ public class AuthDB {
 		Connection con = null;
 		if (jaasSuccessful) try {
 			con = DBUtils.getConn();
-			// login
-			PreparedStatement stmt = con
-					.prepareStatement("select * from users where enabled=true and username=?");
-			stmt.setString(1, auth.getUsername());
-			ResultSet rs = stmt.executeQuery();
-			if (rs.next()) {
-				auth.setId(rs.getLong("id"));
+			int retryCount = 0;
+			boolean obtainedDBDetails = false;
+			while (!obtainedDBDetails && retryCount++ <= 1) {
+				// login
+				PreparedStatement stmt = con
+						.prepareStatement("select * from users where enabled=true and username=?");
+				stmt.setString(1, auth.getUsername());
+				ResultSet rs = stmt.executeQuery();
+				if (rs.next()) {
+					auth.setId(rs.getLong("id"));
+					obtainedDBDetails = true;
+				}
+				else {
+					// This user doesn't exist in our auth DB yet. Create it
+					PreparedStatement pStmt = con.prepareStatement("insert into users (username, user_type) values(?,?)");
+					pStmt.setString(1, auth.getUsername());
+					pStmt.setString(2, Auth.ADMINISTRATOR);
+					pStmt.execute();
+					DBUtils.closeStmt(pStmt);			
+				}				
+				DBUtils.closeRs(rs);
+				DBUtils.closeStmt(stmt);
 			}
-			else {
-				// This user doesn't exist in our auth DB yet. Create it
-				PreparedStatement pStmt = con.prepareStatement("insert into users (username, user_type) values(?,?)");
-				pStmt.setString(1, auth.getUsername());
-				pStmt.setString(2, Auth.ADMINISTRATOR);
-				pStmt.execute();
-				DBUtils.closeStmt(pStmt);				
-			}
-			
 			authToken = UUID.randomUUID().toString();
 			auth.setAuthToken(authToken);
 			// set auth token
 			updateLogin(con, auth);
-			
-			DBUtils.closeRs(rs);
-			DBUtils.closeStmt(stmt);
+					
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
