@@ -8,3 +8,5 @@ target/*
 .idea/*
 *.iml
 *.DS_Store
+/target
+jaas.config
