@@ -15,21 +15,21 @@
  */
 package com.keybox.manage.action;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.lang3.StringUtils;
+import org.apache.struts2.convention.annotation.Action;
+import org.apache.struts2.convention.annotation.Result;
+import org.apache.struts2.interceptor.ServletRequestAware;
+import org.apache.struts2.interceptor.ServletResponseAware;
+
 import com.keybox.common.util.AppConfig;
 import com.keybox.common.util.AuthUtil;
 import com.keybox.manage.db.AuthDB;
 import com.keybox.manage.model.Auth;
 import com.keybox.manage.util.OTPUtil;
 import com.opensymphony.xwork2.ActionSupport;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.struts2.convention.annotation.Action;
-import org.apache.struts2.convention.annotation.Result;
-import org.apache.struts2.interceptor.ServletRequestAware;
-import org.apache.struts2.interceptor.ServletResponseAware;
-import sun.misc.SharedSecrets;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 
 /**
@@ -138,22 +138,8 @@ public class LoginAction extends ActionSupport implements ServletRequestAware, S
             }
     )
     public String passwordSubmit() {
-        String retVal = SUCCESS;
-
-        if (auth.getPassword().equals(auth.getPasswordConfirm())) {
-            auth.setAuthToken(AuthUtil.getAuthToken(servletRequest.getSession()));
-
-            if (!AuthDB.updatePassword(auth)) {
-                addActionError("Current password is invalid");
-                retVal = INPUT;
-            }
-
-        } else {
-            addActionError("Passwords do not match");
-            retVal = INPUT;
-        }
-
-
+        String retVal = INPUT;
+        addActionError("Password cannot be changed via Keybox. Password is authenticated externally via JAAS module");
         return retVal;
     }
 
