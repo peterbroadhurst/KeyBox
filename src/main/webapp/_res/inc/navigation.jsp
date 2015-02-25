@@ -23,7 +23,7 @@
 
         <div class="navbar-header">
             <div class="navbar-brand">
-                <div class="nav-img"><img src="<%= request.getContextPath() %>/img/keybox_50x38.png"/></div>
+                <div class="nav-img"><img src="<%= request.getContextPath() %>/img/keybox_50x38.png" alt="keybox"/></div>
                 KeyBox
             </div>
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -54,7 +54,12 @@
 
                             </s:if>
                             <s:if test="%{@com.keybox.manage.util.SSHUtil@keyManagementEnabled}">
-                                <li><a href="../admin/viewKeys.action">Manage SSH Keys</a></li>
+                                <s:if test="%{#session.userType==\"M\"}">
+                                    <li><a href="../manage/viewKeys.action">Manage SSH Keys</a></li>
+                                </s:if>
+                                <s:else>
+                                    <li><a href="../admin/viewKeys.action">Manage SSH Keys</a></li>
+                                </s:else>
                             </s:if>
                         </ul>
                     </li>

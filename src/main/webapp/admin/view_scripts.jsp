@@ -54,9 +54,6 @@
             $('#<s:property value="sortedSet.orderByField"/>').attr('class', '<s:property value="sortedSet.orderByDirection"/>');
             </s:if>
 
-
-            $('.scrollableTable').tableScroll({height:500});
-            $(".scrollableTable tr:odd").css("background-color", "#e0e0e0");
         });
     </script>
 
@@ -112,10 +109,10 @@
                             <td>
                                 <div style="width:240px">
 
-                                    <a href="viewSystems.action?script.id=<s:property value="id"/>"><button id="exec_btn_<s:property value="id"/>" class="btn btn-default edit_btn" style="float:left">Execute Script</button></a>
-                                    <button class="btn btn-default" data-toggle="modal" data-target="#edit_dialog_<s:property value="id"/>" style="float:left">Edit</button>
-                                    <button id="del_btn_<s:property value="id"/>" class="btn btn-default del_btn" style="float:left">Delete</button>
-                                    <div style="clear:both"></div>
+                                    <a href="viewSystems.action?script.id=<s:property value="id"/>"><button id="exec_btn_<s:property value="id"/>" class="btn btn-default edit_btn spacer spacer-left">Execute Script</button></a>
+                                    <button class="btn btn-default spacer spacer-middle" data-toggle="modal" data-target="#edit_dialog_<s:property value="id"/>">Edit</button>
+                                    <button id="del_btn_<s:property value="id"/>" class="btn btn-default del_btn spacer spacer-right">Delete</button>
+                                <div style="clear:both"></div>
 
                                 </div>
                             </td>
@@ -126,7 +123,7 @@
                 </table>
         </s:if>
 
-        <button class="btn btn-default add_btn" data-toggle="modal" data-target="#add_dialog">Add Script</button>
+        <button class="btn btn-default add_btn spacer spacer-bottom" data-toggle="modal" data-target="#add_dialog">Add Script</button>
         <div id="add_dialog" class="modal fade">
             <div class="modal-dialog">
                 <div class="modal-content">

@@ -23,6 +23,7 @@ import com.keybox.manage.db.UserDB;
 import com.keybox.manage.model.Script;
 import com.keybox.manage.model.SortedSet;
 import com.keybox.manage.model.User;
+import com.keybox.manage.util.PasswordUtil;
 import com.keybox.manage.util.RefreshAuthKeyUtil;
 import com.opensymphony.xwork2.ActionSupport;
 import org.apache.struts2.convention.annotation.Action;
@@ -54,6 +55,7 @@ public class UsersAction extends ActionSupport  implements ServletRequestAware {
         if(script!=null && script.getId()!=null){
             script=ScriptDB.getScript(script.getId(),userId);
         }
+        user.setId(userId);
         return SUCCESS;
     }
 
@@ -91,7 +93,7 @@ public class UsersAction extends ActionSupport  implements ServletRequestAware {
     )
     public String deleteUser() {
 
-        if (user.getId() != null) {
+        if (user.getId() != null && user.getId()!=AuthUtil.getUserId(servletRequest.getSession())) {
             UserDB.disableUser(user.getId());
             PublicKeyDB.deleteUserPublicKeys(user.getId());
             RefreshAuthKeyUtil.refreshAllSystems();
@@ -120,11 +122,14 @@ public class UsersAction extends ActionSupport  implements ServletRequestAware {
                 || user.getFirstNm().trim().equals("")) {
             addFieldError("user.firstNm", "Required");
         }
-        if (user != null
-                && user.getPassword() != null
-                && !user.getPassword().trim().equals("")
-                && !user.getPassword().equals(user.getPasswordConfirm())) {
-            addActionError("Passwords do not match");
+        
+        if (user != null && user.getPassword() != null && !user.getPassword().trim().equals("")){
+            
+            if(!user.getPassword().equals(user.getPasswordConfirm())) {
+                    addActionError("Passwords do not match");
+            } else if(!PasswordUtil.isValid(user.getPassword())) {
+                    addActionError(PasswordUtil.PASSWORD_REQ_ERROR_MSG);
+            }
         }
 
         if(user!=null && user.getId()==null && (user.getPassword()==null || user.getPassword().trim().equals(""))){
@@ -155,7 +160,7 @@ public class UsersAction extends ActionSupport  implements ServletRequestAware {
     public void setUser(User user) {
         this.user = user;
     }
-
+    
     public Script getScript() {
         return script;
     }

@@ -37,7 +37,9 @@ import com.opensymphony.xwork2.ActionSupport;
  */
 public class LoginAction extends ActionSupport implements ServletRequestAware, ServletResponseAware {
 
-    HttpServletResponse servletResponse;
+	private static final long serialVersionUID = -4152215803421847147L;
+	
+	HttpServletResponse servletResponse;
     HttpServletRequest servletRequest;
     Auth auth;
     private final String AUTH_ERROR="Authentication Failed : Login credentials are invalid";

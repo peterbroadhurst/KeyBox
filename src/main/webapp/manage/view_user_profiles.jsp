@@ -35,8 +35,6 @@
                 $(this).parents('.modal').find('form').submit();
             });
 
-            $('.scrollableTable').tableScroll({height: 400});
-            $(".scrollableTable tr:odd").css("background-color", "#e0e0e0");
         });
     </script>
 
@@ -53,11 +51,11 @@
 
     <p>Add / Delete profiles to be assigned to the current user.</p>
 
-    <h4><s:property value="user.username"/>&nbsp;:&nbsp;<s:property value="user.lastNm"/>,&nbsp;<s:property
+    <h5><s:property value="user.username"/>&nbsp;:&nbsp;<s:property value="user.lastNm"/>,&nbsp;<s:property
             value="user.firstNm"/>
         &nbsp;(<s:property value="user.email"/>)
 
-    </h4>
+    </h5>
 
 
     <s:if test="user.profileList!= null && !user.profileList.isEmpty()">
@@ -87,12 +85,12 @@
                     <td>
 
                         <a href="viewProfileSystems.action?profile.id=<s:property value="id"/>">
-                            <div id="assign_btn_<s:property value="id"/>" class="btn btn-default edit_btn"
+                            <div id="assign_btn_<s:property value="id"/>" class="btn btn-default edit_btn spacer spacer-left"
                                  style="float:left">Assign Systems
                             </div>
                         </a>
 
-                        <button id="del_btn_<s:property value="id"/>" class="btn btn-default del_btn">Delete</button>
+                        <button id="del_btn_<s:property value="id"/>" class="btn btn-default del_btn spacer spacer-right">Delete</button>
 
                     </td>
 
@@ -110,7 +108,7 @@
     <s:if test="profileList!= null && !profileList.isEmpty()">
 
 
-        <button class="btn btn-default add_btn" data-toggle="modal" data-target="#add_dialog">Add Profile</button>
+        <button class="btn btn-default add_btn spacer spacer-bottom" data-toggle="modal" data-target="#add_dialog">Add Profile</button>
         <div id="add_dialog" class="modal fade">
             <div class="modal-dialog">
                 <div class="modal-content">

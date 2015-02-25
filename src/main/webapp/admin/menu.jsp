@@ -69,7 +69,7 @@
 
 
                 <td>
-                    Manage systems so that access may be granted and SSH sessions established
+                    Manage systems so that access may be granted for establishing SSH sessions.
                 </td>
 
             </tr>
@@ -78,7 +78,7 @@
                     <a href="../manage/viewProfiles.action">Profiles</a>
                </td>
                <td>
-                    Create profiles and assign systems so that users will be granted access when the authorized key file is distributed to systems.
+                    Create profiles and assign systems to grant user access and distribute keys.
                </td>
             </tr>
             <tr>
@@ -87,8 +87,7 @@
 
                 </td>
                 <td>
-                    Manage user accounts and public keys. Assign profiles so that users will be granted access when the authorized key
-                    file is distributed to systems.
+                    Manage user accounts and profiles. Profiles grants a user access to the defined systems.
                 </td>
             </tr>
             </s:if>
@@ -107,17 +106,27 @@
                     <a href="../admin/viewScripts.action">Composite Scripts</a>
                 </td>
                 <td>
-                    Create scripts to be executed on selected systems simultaneously through a web-terminal
+                    Create scripts to be executed on selected systems simultaneously through a web-terminal.
                 </td>
              </tr>
             <s:if test="%{@com.keybox.manage.util.SSHUtil@keyManagementEnabled}">
             <tr>
+                <s:if test="%{#session.userType==\"M\"}">
                 <td>
-                    <a href="../admin/viewKeys.action">Manage SSH Keys</a>
+                    <a href="../manage/viewKeys.action">Manage SSH Keys</a>
                 </td>
-                <td>
-                    Set additional public SSH keys for systems
-                </td>
+                 <td>
+                     Disable any administrative key forcing rotation. Set additional public SSH keys for current user. 
+                 </td>
+                </s:if>
+                <s:else>
+                    <td>
+                        <a href="../admin/viewKeys.action">Manage SSH Keys</a>
+                    </td>
+                    <td>
+                        Set additional public SSH keys for current user.
+                    </td>
+                </s:else>
             </tr>
             </s:if>
              <s:if test="%{#session.userType==\"M\"}">
@@ -126,7 +135,7 @@
                     <a href="../manage/viewSessions.action">Audit Sessions</a>
                 </td>
                 <td>
-                    Audit administrator's sessions and terminal history
+                    Audit administrator's sessions and terminal history.
                 </td>
             </tr>
             </s:if>
@@ -135,7 +144,7 @@
                   <a href="../admin/setPassword.action">Change Password</a>
                 </td>
                 <td>
-                    Change administrative login to application
+                    Change administrative login to application.
                 </td>
             </tr>
             </tbody>

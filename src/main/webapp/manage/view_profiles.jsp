@@ -52,8 +52,6 @@
             $('#<s:property value="sortedSet.orderByField"/>').attr('class', '<s:property value="sortedSet.orderByDirection"/>');
             </s:if>
 
-            $('.scrollableTable').tableScroll({height: 500});
-            $(".scrollableTable tr:odd").css("background-color", "#e0e0e0");
         });
     </script>
     <s:if test="fieldErrors.size > 0">
@@ -93,10 +91,8 @@
 
         <s:if test="sortedSet.itemList!= null && !sortedSet.itemList.isEmpty()">
 
-            <table class="table-striped scrollableTable">
+            <table class="table-striped scrollableTable" >
                 <thead>
-
-
 
                 <tr>
                     <th id="<s:property value="@com.keybox.manage.db.ProfileDB@SORT_BY_PROFILE_NM"/>" class="sort">
@@ -106,9 +102,6 @@
                 </tr>
                 </thead>
                 <tbody>
-
-
-
 
                 <s:iterator var="profile" value="sortedSet.itemList" status="stat">
                     <tr>
@@ -120,11 +113,11 @@
                         </td>
 
                         <td>
-                            <div style="width:240px">
+                            <div>
                                 <a href="viewProfileSystems.action?profile.id=<s:property value="id"/>">
-                                <button id="assign_btn_<s:property value="id"/>" class="btn btn-default edit_btn" style="float:left">Assign Systems</button></a>
-                                <button class="btn btn-default" data-toggle="modal" data-target="#edit_dialog_<s:property value="id"/>" style="float:left">Edit</button>
-                                <button id="del_btn_<s:property value="id"/>" class="btn btn-default del_btn" style="float:left">Delete</button>
+                                    <button id="assign_btn_<s:property value="id"/>" class="btn btn-default edit_btn spacer spacer-left">Assign Systems</button></a>
+                                    <button class="btn btn-default spacer spacer-middle" data-toggle="modal" data-target="#edit_dialog_<s:property value="id"/>">Edit</button>
+                                    <button id="del_btn_<s:property value="id"/>" class="btn btn-default del_btn spacer spacer-right">Delete</button>
                                 <div style="clear:both"/>
                             </div>
                         </td>
@@ -136,7 +129,7 @@
             </table>
         </s:if>
 
-        <button class="btn btn-default add_btn" data-toggle="modal" data-target="#add_dialog">Add Profile</button>
+        <button class="btn btn-default add_btn spacer spacer-bottom" data-toggle="modal" data-target="#add_dialog">Add Profile</button>
         <div id="add_dialog" class="modal fade">
             <div class="modal-dialog">
                 <div class="modal-content">

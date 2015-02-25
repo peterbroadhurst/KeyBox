@@ -59,9 +59,6 @@
             <s:if test="sortedSet.orderByField!= null">
             $('#<s:property value="sortedSet.orderByField"/>').attr('class', '<s:property value="sortedSet.orderByDirection"/>');
             </s:if>
-            $('.scrollableTable').tableScroll({height:400});
-            $(".scrollableTable tr:odd").css("background-color", "#e0e0e0");
-
 
             <s:if test="profile.hostSystemList!= null && !profile.hostSystemList.isEmpty()">
             <s:iterator var="system" value="profile.hostSystemList" status="stat">
@@ -94,7 +91,7 @@
         <p>Select the systems below to be assigned to the current profile.</p>
 
         <h4><s:property value="profile.nm"/></h4>
-        <p><s:property value="profile.desc"/></p>
+        <p class="small"><s:property value="profile.desc"/></p>
 
 
         <s:if test="sortedSet.itemList!= null && !sortedSet.itemList.isEmpty()">
@@ -137,7 +134,7 @@
                     </tbody>
                 </table>
             </s:form>
-            <div id="assign_sys" class="btn btn-default assign_sys_btn">Assign</div>
+            <div id="assign_sys" class="btn btn-default assign_sys_btn spacer spacer-bottom">Assign</div>
         </s:if>
         <s:else>
             <div class="error">There are no systems defined (<a href="viewSystems.action">Manage Systems</a>).</div>

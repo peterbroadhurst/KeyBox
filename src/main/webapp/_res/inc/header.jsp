@@ -28,6 +28,9 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
+
+        $.ajaxSetup({ cache: false });
+        
         $(function () {
             $("a").tooltip({
                 'selector': '',
@@ -50,6 +53,21 @@
                     $(this).click();
                 }
             });
+
+            $("form input, form select").keydown(function(event){
+                if (event.keyCode == 13) {
+                    $(this).closest("form").submit();
+                }
+            });
+        });
+        
+        $('.scrollableTable').tableScroll({height: 450});
+        $(".scrollableTable tr:odd").css("background-color", "#e0e0e0");
+
+        $(':input:enabled:visible:first').focus();
+        
+        $('.modal').on('shown.bs.modal', function () {
+            $('input:enabled:visible:first').focus();
         });
 
     });

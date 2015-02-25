@@ -28,23 +28,11 @@
 
         $(document).ready(function() {
 
-
             $("#login_btn").button().click(function() {
                 $('#loginSubmit').submit();
             });
         });
 		
-		function callLogin(event) {
-			if (!event) {
-				return
-			}
-			
-			//Enter
-			if (event.keyCode == 13) {
-				$('#login_btn').click();
-			}
-		}
-
     </script>
     <title>KeyBox - Login </title>
 </head>
@@ -55,7 +43,7 @@
 
             <div class="navbar-header">
                 <div class="navbar-brand" >
-                    <div class="nav-img"><img src="<%= request.getContextPath() %>/img/keybox_50x38.png"/></div>
+                    <div class="nav-img"><img src="<%= request.getContextPath() %>/img/keybox_50x38.png" alt="keybox"/></div>
                  KeyBox</div>
             </div>
             <!--/.nav-collapse -->
@@ -67,9 +55,9 @@
         <s:actionerror/>
         <s:form action="loginSubmit"  autocomplete="off">
             <s:textfield name="auth.username" label="Username"/>
-            <s:password name="auth.password" label="Password" value="" onkeydown="callLogin(event)"/>
+            <s:password name="auth.password" label="Password" value="" />
             <s:if test="otpEnabled">
-                <s:textfield name="auth.otpToken" label="OTP Access Code"  autocomplete="off" value="" onkeydown="callLogin(event)"/>
+                <s:textfield name="auth.otpToken" label="OTP Access Code"  autocomplete="off" value=""/>
             </s:if>
             <tr> <td>&nbsp;</td>
                 <td align="right">  <div id="login_btn" class="btn btn-default login" >Login</div></td>

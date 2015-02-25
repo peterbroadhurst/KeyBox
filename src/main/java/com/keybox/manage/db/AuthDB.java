@@ -101,7 +101,7 @@ public class AuthDB {
 					// This user doesn't exist in our auth DB yet. Create it
 					PreparedStatement pStmt = con.prepareStatement("insert into users (username, user_type) values(?,?)");
 					pStmt.setString(1, auth.getUsername());
-					pStmt.setString(2, Auth.ADMINISTRATOR);
+					pStmt.setString(2, Auth.MANAGER);
 					pStmt.execute();
 					DBUtils.closeStmt(pStmt);			
 				}				

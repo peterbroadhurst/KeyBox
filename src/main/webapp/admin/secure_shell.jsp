@@ -40,7 +40,6 @@
             });
 
 
-            $.ajaxSetup({cache: false});
             $('.droppable').droppable({
                 zIndex: 10000,
                 tolerance: "touch",
@@ -428,7 +427,7 @@
 
         <div class="navbar-header">
             <div class="navbar-brand">
-                <div class="nav-img"><img src="<%= request.getContextPath() %>/img/keybox_50x38.png"/></div>
+                <div class="nav-img"><img src="<%= request.getContextPath() %>/img/keybox_50x38.png" alt="keybox"/></div>
                 KeyBox
             </div>
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">

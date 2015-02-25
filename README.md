@@ -1,12 +1,10 @@
 KeyBox
 ======
-A web-based ssh console to execute commands and manage multiple systems
-simultaneously. KeyBox allows you to share terminal commands and upload files to
-all your systems. Once the sessions have been opened you can select a single
-system or any combination to run your commands.  Additional system
-administrators can be added and their terminal sessions and history can be
-audited. Also, KeyBox can manage and distribute public keys that have been setup
-and defined.
+KeyBox is a web-based SSH console that centrally manages administrative access to systems. KeyBox combines key management and administration through profiles assigned to defined users.
+
+Administrators can login using two-factor authentication with [FreeOTP](https://fedorahosted.org/freeotp) or [Google Authenticatior](https://github.com/google/google-authenticator). From there they can manage their public SSH keys or connect to their systems through a web-shell. Commands can be shared across shells to make patching easier and eliminate redundant command execution.
+
+KeyBox layers TLS/SSL on top of SSH and can act as a bastion host for administration. Layering protocols for security is described in detail in [The Security Implications of SSH](http://www.sans.org/reading-room/whitepapers/vpns/security-implications-ssh-1180) whitepaper. SSH key management is enabled by default to prevent unmanaged public keys and enforce best practices.
 
 ![Terminals](http://sshkeybox.com/img/screenshots/medium/terms.png)
 
@@ -95,6 +93,12 @@ Also, the authorized_keys file is updated/refreshed periodically based on the re
 	#authorized_keys refresh interval in minutes (no refresh for <=0)
 	authKeysRefreshInterval=120
 
+By default KeyBox will generated and distribute the SSH keys managed by administrators while having them download the generated private. This forces admins to use strong passphrases for keys that are set on systems.  The private key is only available for download once and is not stored on the application side.  To disable and allow administrators to set any public key edit the KeyBoxConfig.properties.
+
+	#set to true to generate keys when added/managed by users and enforce strong passphrases set to false to allow users to set their own public key
+	forceUserKeyGeneration=false
+
+
 Supplying a Custom SSH Key Pair
 ------
 KeyBox generates its own public/private SSH key upon initial startup for use when registering systems.  You can specify a custom SSH key pair in the KeyBoxConfig.properties file.
@@ -115,6 +119,8 @@ For example:
 	
 	#default passphrase  --leave blank if passphrase is empty
 	defaultSSHPassphrase=myPa$$w0rd
+	
+After startup and once the key has been registered it can then be removed from the system. The passphrase and the key paths will be removed from the configuration file.
 
 Auditing
 ------
@@ -141,7 +147,8 @@ Steps:
 5. Users can login to create sessions on assigned systems
 6. Start a composite SSH session or create and execute a script across multiple sessions
 7. Add additional public keys to systems
-8. Audit session history
+8. Disable any adminstrative public key forcing key rotation.
+9. Audit session history
 
 Screenshots
 -----------
@@ -151,13 +158,13 @@ Screenshots
 
 ![More Terminals](http://sshkeybox.com/img/screenshots/medium/more_terms.png)
 
-![Upload Files](http://sshkeybox.com/img/screenshots/medium/upload_files.png)
-
 ![Manage Systems](http://sshkeybox.com/img/screenshots/medium/manage_systems.png)
 
 ![Manage Users](http://sshkeybox.com/img/screenshots/medium/manage_users.png)
 
 ![Define SSH Keys](http://sshkeybox.com/img/screenshots/medium/manage_keys.png)
+
+![Disable SSH Keys](http://sshkeybox.com/img/screenshots/medium/disable_keys.png)
 
 Acknowledgments
 ------
@@ -165,6 +172,8 @@ Special thanks goes to these amazing projects which makes this (and other great 
 
 + [JSch](http://www.jcraft.com/jsch) Java Secure Channel - by [ymnk](https://github.com/ymnk)
 + [term.js](https://github.com/chjj/term.js) A terminal written in javascript - by [chjj](https://github.com/chjj)
+
+Third-party dependencies are mentioned in the [_3rdPartyLicenses.md_](3rdPartyLicenses.md)
 
 Author
 ------
